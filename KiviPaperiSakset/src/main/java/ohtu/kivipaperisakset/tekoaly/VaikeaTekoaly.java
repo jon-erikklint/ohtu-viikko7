@@ -1,18 +1,19 @@
 
-package ohtu.kivipaperisakset;
+package ohtu.kivipaperisakset.tekoaly;
 
 // "Muistava tekoäly"
 
-public class TekoalyParannettu {
+public class VaikeaTekoaly implements Tekoaly{
   private String[] muisti;
   private int vapaaMuistiIndeksi;
 
-  public TekoalyParannettu(int muistinKoko) {
+  public VaikeaTekoaly(int muistinKoko) {
     muisti = new String[muistinKoko];
     vapaaMuistiIndeksi = 0;
   }
   
-  public void asetaSiirto(String siirto) {
+  @Override
+  public void tallennaVastustajanSiirto(String siirto) {
     // jos muisti täyttyy, unohdetaan viimeinen alkio
     if(vapaaMuistiIndeksi == muisti.length) {
       for(int i = 1; i < muisti.length; i++) {
@@ -27,6 +28,7 @@ public class TekoalyParannettu {
   }
 
   
+  @Override
   public String annaSiirto() {
     if(vapaaMuistiIndeksi == 0 || vapaaMuistiIndeksi == 1) {
       return "k";

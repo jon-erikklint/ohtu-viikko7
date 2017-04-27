@@ -1,16 +1,27 @@
 package ohtu.kivipaperisakset;
 
 // Tuomari pitää kirjaa ensimmäisen ja toisen pelaajan pisteistä sekä tasapelien määrästä.
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Tuomari {
 
     private int ekanPisteet;
     private int tokanPisteet;
     private int tasapelit;
+    
+    private final Map<String,String> voittajat;
 
     public Tuomari() {
         this.ekanPisteet = 0;
         this.tokanPisteet = 0;
         this.tasapelit = 0;
+        
+        voittajat = new HashMap<>();
+        voittajat.put("k", "s");
+        voittajat.put("s", "p");
+        voittajat.put("p", "k");
     }
 
     public void kirjaaSiirto(String ekanSiirto, String tokanSiirto) {
@@ -24,30 +35,18 @@ public class Tuomari {
     }
 
     // sisäinen metodi, jolla tarkastetaan tuliko tasapeli
-    private static boolean tasapeli(String eka, String toka) {
-        if (eka.equals(toka)) {
-            return true;
-        }
-
-        return false;
+    private boolean tasapeli(String eka, String toka) {
+        return eka.equals(toka);
     }
 
     // sisäinen metodi joka tarkastaa voittaako eka pelaaja tokan
-    private static boolean ekaVoittaa(String eka, String toka) {
-        if ("k".equals(eka) && "s".equals(toka)) {
-            return true;
-        } else if ("s".equals(eka) && "p".equals(toka)) {
-            return true;
-        } else if ("p".equals(eka) && "k".equals(toka)) {
-            return true;
-        }
-
-        return false;
+    private boolean ekaVoittaa(String eka, String toka) {
+        return voittajat.get(eka).equals(toka);
     }
 
+    @Override
     public String toString() {
-        String s = "Pelitilanne: " + ekanPisteet + " - " + tokanPisteet + "\n"
+        return "Pelitilanne: " + ekanPisteet + " - " + tokanPisteet + "\n"
                 + "Tasapelit: " + tasapelit;
-        return s;
     }
 }
